@@ -27,7 +27,7 @@
                 </button>
               </div>
             </div>
-            <form id="biodata" method="POST" action="{{ route('submit-form') }}">
+            <form id="biodata" method="POST" action="{{ route('submit-form' , ['id' => $post->id]) }}">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -43,7 +43,7 @@
                         <div class="row">
                             <div class="col-3">
                                 <label for="">Provinsi</label>
-                                <input type="text" class="form-control" placeholder="Masukkan disini.." name="ktp_provinsi">
+                                <input type="text" class="form-control" placeholder="Masukkan disini.." name="ktp_provinsi" value="{{old('ktp_provinsi')}}">
                                 @error('ktp_provinsi')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror

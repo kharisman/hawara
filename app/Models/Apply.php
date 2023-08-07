@@ -8,7 +8,7 @@ class Apply extends Model
 {
     public function formData()
     {
-        return $this->hasOne(FormData::class);
+        return $this->belongsTo(FormData::class,"form_data_id");
     }
 
     public function user()

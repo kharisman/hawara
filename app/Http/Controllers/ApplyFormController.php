@@ -9,15 +9,18 @@ use Illuminate\Http\Request;
 
 class ApplyFormController extends Controller
 {
-    public function showForm()
+    public function showForm($id)
     {
-        // Tampilkan view form
-        return view('apply');
+        
+        $post = Post::where("id",$id)->firstOrFail();
+        // return $post ;
+        return view('apply',compact('post'));
     }
 
-    public function submitForm(Request $request)
+    public function submitForm(Request $request ,$id)
     {
         // Validasi data input
+        $post = Post::where('id', $id)->firstOrFail();
         $request->validate([
             'ktp_text' => 'required',
             'ktp_provinsi' => 'required',
@@ -39,14 +42,15 @@ class ApplyFormController extends Controller
             'periode_kerja' => 'required',
             'jabatan' => 'required',
             'status_pekerjaan' => 'required',
-            //'cv' => 'required|file|mimes:pdf|max:2048',
+            // 'cv' => 'required|file|mimes:pdf',
         ]);
 
         // Upload file CV
+        $cvFileName = null ;
         if ($request->hasFile('cv')) {
             $cvFile = $request->file('cv');
             $cvFileName = time() . '.' . $cvFile->getClientOriginalExtension();
-            $cvFile->move(public_path('uploads'), $cvFileName);
+            $cvFile->move(public_path('pdf'), $cvFileName);
         } else {
             $cvFileName = null;
         }
@@ -73,22 +77,16 @@ class ApplyFormController extends Controller
             'periode_kerja' => $request->input('periode_kerja'),
             'jabatan' => $request->input('jabatan'),
             'status_pekerjaan' => $request->input('status_pekerjaan'),
+            'user_id' => Auth()->user()->id ,
             'cv' => $cvFileName,
         ]);
-
-        $apply = Apply::create([
-            'user_id' => auth()->user()->id, // Assign the ID of the authenticated user
-            // Add other fields here that are not available in the form
-        ]);
-
-        $postTitle = $request->input('title');
-        $post = Post::where('title', $postTitle)->first();
-        $postId = $post ? $post->id : null;
-
-        $apply->formData()->save($formData);
-        $apply->post_id = $postId;
+        $postId = $post ? $post->id : null ;
+        $apply = new Apply();
+        $apply->post_id = $postId ;
+        $apply->form_data_id = $formData->id;
+        $apply->user_id = Auth()->user()->id;
         $apply->save();
-
+        
         // Redirect ke halaman sukses atau tampilan lainnya
         return redirect()->back()->with('success', 'Biodata berhasil diunggah.');
     }

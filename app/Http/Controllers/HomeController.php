@@ -14,14 +14,17 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy("id","DESC")->get();
-        return view('home',compact('posts'));
+        if(Auth::user()->roles=="Super Admin" or Auth::user()->roles=="Admin" ){
+            return view("home_admin");
+        } else {
+            $posts = Post::orderBy("id","DESC")->get();
+            return view('home',compact('posts'));
+        }
     }
 
     public function apply($id)
     {
         $post = Post::where("id",$id)->firstOrFail();
-        // return $post ;
         return view('apply',compact('post'));
     }
 

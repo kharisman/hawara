@@ -81,6 +81,8 @@
 
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+          @if(Auth::user()->roles=="user" )
           <li class="nav-item">
             <a href="{{url('')}}/home" class="nav-link @if(Request::segment(1)=="home") active @endif " >
               <i class="nav-icon fas fa-home"></i>
@@ -99,6 +101,19 @@
             </a>
           </li>
 
+          @endif
+
+          @if(Auth::user()->roles=="Super Admin" or Auth::user()->roles=="Admin" )
+
+          <li class="nav-item">
+            <a href="{{url('')}}/home" class="nav-link @if(Request::segment(1)=="home") active @endif " >
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Beranda
+              </p>
+            </a>
+          </li>
+
           <li class="nav-item">
             <a href="{{url('')}}/posting" class="nav-link @if(Request::segment(1)=="posting") active @endif " >
               <i class="nav-icon fas fa-pencil-alt"></i>
@@ -107,6 +122,7 @@
               </p>
             </a>
           </li>
+
 
           <li class="nav-item">
             <a href="{{url('')}}/list" class="nav-link @if(Request::segment(1)=="list") active @endif " >
@@ -117,6 +133,7 @@
             </a>
           </li>
 
+          
           <li class="nav-item">
             <a href="{{url('')}}/check" class="nav-link @if(Request::segment(1)=="check") active @endif " >
               <i class="nav-icon fas fa-check-circle"></i>
@@ -125,9 +142,6 @@
               </p>
             </a>
           </li>
-
-          @if(Auth::user()->roles!=="user")
-
 
           <li class="nav-item  @if(Request::segment(1)=="report") menu-is-opening menu-open @endif ">
             <a href="#" class="nav-link">
@@ -139,115 +153,15 @@
             </a>
             <ul class="nav nav-treeview" >
 
-              <li class="nav-item @if(Request::segment(2)=="mitra") menu-is-opening menu-open @endif">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Mitra
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview" >
-                  <li class="nav-item">
-                    <a href="{{url('')}}/report/mitra/pendaftaran-mitra" class="nav-link  @if(Request::segment(3)=="pendaftaran-mitra") active @endif ">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Pendaftran Mitra</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{url('')}}/report/mitra/transaksi" class="nav-link @if(Request::segment(3)=="transaksi") active @endif">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Transaksi</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
 
               <li class="nav-item">
-                <a href="{{url('')}}/report/vote-ml" class="nav-link @if(Request::segment(2)=="vote-ml") active @endif ">
+                <a href="{{url('')}}/#" class="nav-link @if(Request::segment(2)=="vote-ml") active @endif ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Vote Mobile lagend</p>
+                  <p># menu</p>
                 </a>
               </li>
 
-              <li class="nav-item">
-                <a href="{{url('')}}/report/pendaftaran" class="nav-link @if(Request::segment(2)=="pendaftaran") active @endif ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pendaftaran</p>
-                </a>
-              </li>
-
-            </ul>
-          </li>
-
-          <li class="nav-item @if(Request::segment(1)=="pengaturan") menu-is-opening menu-open @endif">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cogs"></i>
-              <p>
-                Pengaturan
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview" >
-
-              <li class="nav-item @if(Request::segment(2)=="akes-user") menu-is-opening menu-open @endif">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Akses User
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview" >
-                  <li class="nav-item">
-                    <a href="{{url('')}}/pengaturan/akes-user/tipe-user" class="nav-link @if(Request::segment(3)=="tipe-user") active @endif">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Tipe User</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{url('')}}/pengaturan/akes-user/hak-akses" class="nav-link @if(Request::segment(3)=="hak-akses") active @endif">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Hak Akses</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{url('')}}/pengaturan/akes-user/data-user" class="nav-link @if(Request::segment(3)=="data-user") active @endif">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Data User</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item @if(Request::segment(2)=="mitra") menu-is-opening menu-open @endif">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Mitra
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview" >
-                  <li class="nav-item">
-                    <a href="{{url('')}}/pengaturan/mitra/produk-mitra" class="nav-link  @if(Request::segment(3)=="produk-mitra") active @endif ">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Pendaftran Mitra</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{url('')}}/pengaturan/mitra/transaksi" class="nav-link @if(Request::segment(3)=="transaksi") active @endif">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Transaksi</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('')}}/pengaturan/tim-ml" class="nav-link @if(Request::segment(2)=="tim-ml") active @endif ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tim Mobile lagend</p>
-                </a>
-              </li>
+              
             </ul>
           </li>
 
