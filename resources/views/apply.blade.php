@@ -27,7 +27,7 @@
                 </button>
               </div>
             </div>
-            <form id="biodata" method="POST" action="{{ route('submit-form' , ['id' => $post->id]) }}">
+            <form id="biodata" method="POST" action="{{ route('submit-form' , ['id' => $post->id]) }}" enctype="multipart/form-data" >
                 @csrf
                 <div class="card-body">
                     <div class="form-group">

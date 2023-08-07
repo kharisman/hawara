@@ -42,7 +42,7 @@ class ApplyFormController extends Controller
             'periode_kerja' => 'required',
             'jabatan' => 'required',
             'status_pekerjaan' => 'required',
-            // 'cv' => 'required|file|mimes:pdf',
+            'cv' => 'required|file|mimes:pdf',
         ]);
 
         // Upload file CV
@@ -84,9 +84,10 @@ class ApplyFormController extends Controller
         $apply = new Apply();
         $apply->post_id = $postId ;
         $apply->form_data_id = $formData->id;
+        $apply->cv = $cvFileName;
         $apply->user_id = Auth()->user()->id;
         $apply->save();
-        
+
         // Redirect ke halaman sukses atau tampilan lainnya
         return redirect()->back()->with('success', 'Biodata berhasil diunggah.');
     }
