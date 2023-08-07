@@ -9,34 +9,33 @@
   <link rel="stylesheet" href="{{url('')}}/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="{{url('')}}/dist/css/adminlte.min.css">
 
-  
+
   <!-- DataTables -->
   <link rel="stylesheet" href="{{url('')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{url('')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="{{url('')}}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
 
-<script src="{{url('')}}/plugins/jquery/jquery.min.js"></script>
-<script src="{{url('')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="{{url('')}}/plugins/jquery/jquery.min.js"></script>
+  <script src="{{url('')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- DataTables  & Plugins -->
-<script src="{{url('')}}/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="{{url('')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{url('')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="{{url('')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="{{url('')}}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="{{url('')}}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="{{url('')}}/plugins/jszip/jszip.min.js"></script>
-<script src="{{url('')}}/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="{{url('')}}/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="{{url('')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="{{url('')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="{{url('')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- DataTables  & Plugins -->
+  <script src="{{url('')}}/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="{{url('')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="{{url('')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="{{url('')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="{{url('')}}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="{{url('')}}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="{{url('')}}/plugins/jszip/jszip.min.js"></script>
+  <script src="{{url('')}}/plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="{{url('')}}/plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="{{url('')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="{{url('')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="{{url('')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 
   <script src="{{url('')}}/dist/js/adminlte.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -54,7 +53,7 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
           <span class="dropdown-item dropdown-header">  Menu Pengaturan </span>
           <div class="dropdown-divider"></div>
-          
+
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             <i class="fa fa-key"></i>  Password
@@ -83,7 +82,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="{{url('')}}\home" class="nav-link @if(Request::segment(1)=="home") active @endif " >
+            <a href="{{url('')}}/home" class="nav-link @if(Request::segment(1)=="home") active @endif " >
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Beranda
@@ -100,10 +99,36 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{url('')}}/posting" class="nav-link @if(Request::segment(1)=="posting") active @endif " >
+              <i class="nav-icon fas fa-pencil-alt"></i>
+              <p>
+                Papan Posting
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{url('')}}/list" class="nav-link @if(Request::segment(1)=="list") active @endif " >
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                List Applicant
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{url('')}}/check" class="nav-link @if(Request::segment(1)=="check") active @endif " >
+              <i class="nav-icon fas fa-check-circle"></i>
+              <p>
+                Approval Applicant
+              </p>
+            </a>
+          </li>
 
           @if(Auth::user()->roles!=="user")
 
-            
+
           <li class="nav-item  @if(Request::segment(1)=="report") menu-is-opening menu-open @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
@@ -113,7 +138,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview" >
-              
+
               <li class="nav-item @if(Request::segment(2)=="mitra") menu-is-opening menu-open @endif">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -143,14 +168,14 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Vote Mobile lagend</p>
                 </a>
-              </li> 
+              </li>
 
               <li class="nav-item">
                 <a href="{{url('')}}/report/pendaftaran" class="nav-link @if(Request::segment(2)=="pendaftaran") active @endif ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pendaftaran</p>
                 </a>
-              </li> 
+              </li>
 
             </ul>
           </li>
@@ -159,12 +184,12 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
               <p>
-                Pengaturan 
+                Pengaturan
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview" >
-              
+
               <li class="nav-item @if(Request::segment(2)=="akes-user") menu-is-opening menu-open @endif">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -222,10 +247,10 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tim Mobile lagend</p>
                 </a>
-              </li> 
+              </li>
             </ul>
           </li>
-            
+
           @endif
 
         </ul>

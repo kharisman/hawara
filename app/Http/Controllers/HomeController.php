@@ -66,5 +66,8 @@ class HomeController extends Controller
         return view('result');
     }
 
+    public function posting(Request $request){
+        return view('posting.index');
+    }
 
 }
