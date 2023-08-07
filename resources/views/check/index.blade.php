@@ -42,12 +42,11 @@
                 <table class="table table-striped projects">
                     <thead>
                         <tr>
-                            <th style="width: 2%">No</th>
-                            <th style="width: 20%">Applicant Name</th>
-                            <th style="width: 18%">Nomor Telepon</th>
-                            <th style="width: 15%">Status</th>
-                            <th style="width: 10%">Detail</th>
-                            <th style="width: 35%"></th>
+                            <th style="width: 2%" class="text-center">No</th>
+                            <th style="width: 25%" class="text-center">Applicant Name</th>
+                            <th style="width: 25%" class="text-center">Nomor Telepon</th>
+                            <th style="width: 10%" class="text-center">Status</th>
+                            <th style="width: 38%" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +57,7 @@
                             <tr>
                                 <td>{{ $number }}</td>
                                 <td>{{ $apply->user->name }}</td>
+                                <td>{{ $apply->user->nomor_telepon }}</td>
                                 <td>{{ $apply->status }}</td>
                                 <td class="project-actions text-right">
                                     <div class="btn-group">
