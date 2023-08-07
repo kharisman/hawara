@@ -6,12 +6,44 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ListController;
+use App\Http\Controllers\ApplyFormController;
+use App\Http\Controllers\PostController;
+
+//Applicant Family Controller
+Route::get('/apply-form', [ApplyFormController::class, 'showForm'])->name('apply');
+Route::post('/submit-form', [ApplyFormController::class, 'submitForm'])->name('submit-form');
+Route::get('/list', [ListController::class, 'index'])->name('index');
+Route::get('/list/search', [PostController::class, 'search'])->name('lists.search');
+// Batas Bawah Applies
+
+//Posting Family Controller
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('edit');
+Route::get('/posts/{id}', [PostController::class, 'view'])->name('view');
+Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('delete');
+Route::get('/posting', [PostController::class, 'index'])->name('index');
+Route::get('/create', [PostController::class, 'create'])->name('create');
+Route::post('/store-post', [PostController::class, 'store'])->name('store-post');
+Route::put('/posts/{id}', [PostController::class, 'update'])->name('update');
+Route::get('/posting/search', [PostController::class, 'search'])->name('posts.search');
+//Batas Bawah Posting
+
+//Route::post('/submit-form', [FormController::class, 'store'])->name('submit-form');
+//Route::get('/apply-form', 'ApplyFormController@showForm')->name('apply-form');
+//Route::post('/submit-form', 'ApplyFormController@submitForm')->name('submit-form');
+
 
 Route::get('/', [AuthController::class, 'front'])->name("front");
 Route::post('register', [AuthController::class, 'register'])->name("register");
 Route::get('login', [AuthController::class, 'showFormLogin'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
 
+// Route::post('/submit-form', 'FormController@submitForm')->name('submit-form');
+
+// Route::get('/posts/{id}/view', [PostController::class, 'view'])->name('posts.view');
+// Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+// Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
+// Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('posts.delete');
 
 
 Route::get('lupa-password', [AuthController::class, 'forget'])->name('lupa-password');
@@ -28,13 +60,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-    
     Route::get('home/apply/{id}', [HomeController::class, 'apply']);
     Route::post('home/apply/{id}', [HomeController::class, 'apply_p']);
 
-
-    
     Route::get('result', [HomeController::class, 'result']);
+
+    // Route::get('posting', [HomeController::class, 'posting']);
+
 
     Route::prefix('report')->group(function () {
         Route::prefix('mitra')->group(function () {
@@ -42,7 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('transaksi', [ReportController::class, 'transaksi_mitra']);
         });
 
-        
+
         Route::get('vote-ml', [ReportController::class, 'vote_ml']);
         Route::get('pendaftaran', [ReportController::class, 'pendaftaran']);
     });
@@ -67,14 +99,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('transaksi', [ReportController::class, 'transaksi_mitra']);
         });
 
-        
+
         Route::get('tim-ml', [SettingController::class, 'tim_ml']);
         Route::get('tim-ml/tambah', [SettingController::class, 'tim_ml_add']);
         Route::post('tim-ml/tambah', [SettingController::class, 'tim_ml_add_p']);
         Route::get('tim-ml/edit', [SettingController::class, 'tim_ml_edit']);
         Route::post('tim-ml/edit', [SettingController::class, 'tim_ml_edit_p']);
     });
-    
+
 });
 
 
