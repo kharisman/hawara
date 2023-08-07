@@ -18,14 +18,14 @@
     </section>
     <section class="content">
       <div class="container-fluid">
-        
+
           @foreach($posts as $post)
             <div class="card bg-primary text-white mb-4">
               <div class="card-header">
                 <h5 class="card-title">{{ $post->title }}</h5>
               </div>
               <div class="card-body">
-                <p class="card-text">{{ $post->content }}</p>
+                <p class="card-text">{{ $post->description }}</p>
                 <a href="{{url('')}}/home/apply/{{$post->id}}" class="btn btn-success">Masukan Lamaran Anda</a>
               </div>
             </div>

@@ -20,7 +20,7 @@
   <div class="login-logo">
     <img src="https://hawara.id/wp-content/uploads/2023/06/cropped-hawara-133x74.png" alt="" srcset="">
   </div>
-  
+
   <div class="card">
     <div class="card-body login-card-body">
         @if(session()->has('logout'))
@@ -35,9 +35,9 @@
         <div class="card-body">
             @if(session('errors'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    Tolong Perikasa Kembali
+                    Tolong Periksa Kembali
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true"></span>
                     </button>
                     <ul>
                     @foreach ($errors->all() as $error)
@@ -80,7 +80,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="input-group mb-3">
           <input type="password" class="form-control" placeholder="Password" name="password">
           <div class="input-group-append">
@@ -90,7 +90,7 @@
           </div>
         </div>
         <div class="row">
-          
+
           <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block">Daftar</button>
 
@@ -113,8 +113,8 @@
       </div> --}}
       <!-- /.social-auth-links -->
 
-      
-      
+
+
     </div>
     <!-- /.login-card-body -->
   </div>
