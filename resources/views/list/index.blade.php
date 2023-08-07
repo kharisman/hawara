@@ -43,6 +43,7 @@
                     <thead>
                         <tr>
                             <th style="width: 2%">No</th>
+<<<<<<< HEAD
                             <th style="width: 12%">Applicant Name</th>
                             <th style="width: 12%">Email</th>
                             <th style="width: 12%">Status</th>
@@ -50,6 +51,12 @@
                             <th style="width: 12%">Phone Number</th>
                             <th style="width: 12%">Registered At</th>
                             <th style="width: 22%"></th>
+=======
+                            <th style="width: 25%">Applicant Name</th>
+                            <th style="width: 25%">Nomor Telepon</th>
+                            <th style="width: 25%">Status</th>
+                            <th style="width: 23%"></th>
+>>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +67,7 @@
                             <tr>
                                 <td>{{ $number }}</td>
                                 <td>{{ $apply->user->name }}</td>
+<<<<<<< HEAD
                                 <td>{{ $apply->user->email }}</td> <!-- Ganti "name" dengan nama kolom yang sesuai di tabel "users" -->
                                 <td>{{ $apply->status }}</td>
                                 <td>{{ $apply->applied_at }}</td>
@@ -79,6 +87,24 @@
                                       </button>
                                     </form>
                                   </td>
+=======
+                                <td>{{ $apply->user->nomor_telepon }}</td>
+                                <td>{{ $apply->status }}</td>
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" href="{{ route('list.view', ['id' => $apply->id]) }}">
+                                      <i class="fas fa-folder"></i>
+                                      Detail
+                                    </a>
+                                    <form action="{{ route('list.delete', ['id' => $apply->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+>>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
                             </tr>
                             @php
                                 $number++; // Increment nomor urutan setiap perulangan

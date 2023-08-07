@@ -11,10 +11,21 @@ use App\Http\Controllers\ApplyFormController;
 use App\Http\Controllers\PostController;
 
 //Applicant Family Controller
+<<<<<<< HEAD
 Route::get('/apply-form', [ApplyFormController::class, 'showForm'])->name('apply');
 Route::post('/submit-form', [ApplyFormController::class, 'submitForm'])->name('submit-form');
 Route::get('/list', [ListController::class, 'index'])->name('index');
 Route::get('/list/search', [PostController::class, 'search'])->name('lists.search');
+=======
+Route::get('/home/apply/{id}', [ApplyFormController::class, 'showForm'])->name('apply');
+Route::post('/submit-form/{id}', [ApplyFormController::class, 'submitForm'])->name('submit-form');
+Route::get('/list', [ListController::class, 'index'])->name('index');
+Route::get('/list/search', [ListController::class, 'search'])->name('lists.search');
+Route::delete('/list/{id}', [ListController::class, 'delete'])->name('list.delete');
+Route::get('/list/{id}', [ListController::class, 'view'])->name('list.view');
+Route::get('/check', [ListController::class, 'check'])->name('check');
+Route::post('/update-status/{id}/{status}', [ListController::class, 'updateStatus'])->name('update.status');
+>>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
 // Batas Bawah Applies
 
 //Posting Family Controller
@@ -60,12 +71,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 
+<<<<<<< HEAD
     Route::get('home/apply/{id}', [HomeController::class, 'apply']);
     Route::post('home/apply/{id}', [HomeController::class, 'apply_p']);
+=======
+>>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
 
     Route::get('result', [HomeController::class, 'result']);
 
     // Route::get('posting', [HomeController::class, 'posting']);
+<<<<<<< HEAD
 
 
     Route::prefix('report')->group(function () {
@@ -78,11 +93,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('vote-ml', [ReportController::class, 'vote_ml']);
         Route::get('pendaftaran', [ReportController::class, 'pendaftaran']);
     });
+=======
 
-    Route::prefix('pengaturan')->group(function () {
-        Route::get('website', [SettingController::class, 'website']);
-        Route::get('program-mitra', [SettingController::class, 'program_mitra']);
+>>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
 
+
+<<<<<<< HEAD
         Route::prefix('akes-user')->group(function () {
             Route::get('tipe-user', [SettingController::class, 'website']);
             Route::get('hak-akses', [SettingController::class, 'website']);
@@ -107,6 +123,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('tim-ml/edit', [SettingController::class, 'tim_ml_edit_p']);
     });
 
+=======
+>>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
 });
 
 

@@ -39,6 +39,7 @@ class ApplyFormController extends Controller
             'periode_kerja' => 'required',
             'jabatan' => 'required',
             'status_pekerjaan' => 'required',
+<<<<<<< HEAD
             //'cv' => 'required|file|mimes:pdf|max:2048',
         ]);
 
@@ -47,6 +48,17 @@ class ApplyFormController extends Controller
             $cvFile = $request->file('cv');
             $cvFileName = time() . '.' . $cvFile->getClientOriginalExtension();
             $cvFile->move(public_path('uploads'), $cvFileName);
+=======
+            'cv' => 'required|file|mimes:pdf',
+        ]);
+
+        // Upload file CV
+        $cvFileName = null ;
+        if ($request->hasFile('cv')) {
+            $cvFile = $request->file('cv');
+            $cvFileName = time() . '.' . $cvFile->getClientOriginalExtension();
+            $cvFile->move(public_path('pdf'), $cvFileName);
+>>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
         } else {
             $cvFileName = null;
         }
@@ -73,6 +85,7 @@ class ApplyFormController extends Controller
             'periode_kerja' => $request->input('periode_kerja'),
             'jabatan' => $request->input('jabatan'),
             'status_pekerjaan' => $request->input('status_pekerjaan'),
+<<<<<<< HEAD
             'cv' => $cvFileName,
         ]);
 
@@ -87,6 +100,17 @@ class ApplyFormController extends Controller
 
         $apply->formData()->save($formData);
         $apply->post_id = $postId;
+=======
+            'user_id' => Auth()->user()->id ,
+            'cv' => $cvFileName,
+        ]);
+        $postId = $post ? $post->id : null ;
+        $apply = new Apply();
+        $apply->post_id = $postId ;
+        $apply->form_data_id = $formData->id;
+        $apply->cv = $cvFileName;
+        $apply->user_id = Auth()->user()->id;
+>>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
         $apply->save();
 
         // Redirect ke halaman sukses atau tampilan lainnya
