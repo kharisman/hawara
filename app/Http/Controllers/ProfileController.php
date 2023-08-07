@@ -90,11 +90,7 @@ class ProfileController extends Controller
             'nama'     => 'required|min:3|max:255',
             'nomor_telepon'     => 'required|min:11|max:16',
             'email'    => 'required|email|unique:user_reports',
-<<<<<<< HEAD
-            'password' => 'required|string|min:6|max:255'
-=======
             'password' => 'required|string|min:6|max:255',
->>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
 
             'alamatktp' => 'required|min:63|max:255',
         ];

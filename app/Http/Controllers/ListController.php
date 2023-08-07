@@ -16,15 +16,12 @@ class ListController extends Controller
         return view('list.index', compact('applies'));
     }
 
-<<<<<<< HEAD
-=======
     public function check()
     {
         $applies = Apply::with('formData', 'user')->get();
         return view('check.index', compact('applies'));
     }
 
->>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
     public function show($id)
     {
         // Kode untuk menampilkan data dengan ID tertentu
@@ -32,17 +29,6 @@ class ListController extends Controller
         return view('list.show', compact('data'));
     }
 
-<<<<<<< HEAD
-    public function destroy($id)
-    {
-        // Kode untuk menghapus data dengan ID tertentu
-        $data = Data::find($id);
-        $data->delete();
-
-        // Redirect ke halaman index setelah menghapus data
-        return redirect()->route('list.index')->with('success', 'Data berhasil dihapus');
-    }
-=======
     public function delete($id)
     {
         // Find the apply based on the ID
@@ -103,5 +89,4 @@ class ListController extends Controller
         return redirect()->back()->with('success', 'Status apply berhasil diperbarui');
     }
 
->>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
 }

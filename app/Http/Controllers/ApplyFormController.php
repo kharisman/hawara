@@ -39,16 +39,6 @@ class ApplyFormController extends Controller
             'periode_kerja' => 'required',
             'jabatan' => 'required',
             'status_pekerjaan' => 'required',
-<<<<<<< HEAD
-            //'cv' => 'required|file|mimes:pdf|max:2048',
-        ]);
-
-        // Upload file CV
-        if ($request->hasFile('cv')) {
-            $cvFile = $request->file('cv');
-            $cvFileName = time() . '.' . $cvFile->getClientOriginalExtension();
-            $cvFile->move(public_path('uploads'), $cvFileName);
-=======
             'cv' => 'required|file|mimes:pdf',
         ]);
 
@@ -58,7 +48,6 @@ class ApplyFormController extends Controller
             $cvFile = $request->file('cv');
             $cvFileName = time() . '.' . $cvFile->getClientOriginalExtension();
             $cvFile->move(public_path('pdf'), $cvFileName);
->>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
         } else {
             $cvFileName = null;
         }
@@ -85,22 +74,6 @@ class ApplyFormController extends Controller
             'periode_kerja' => $request->input('periode_kerja'),
             'jabatan' => $request->input('jabatan'),
             'status_pekerjaan' => $request->input('status_pekerjaan'),
-<<<<<<< HEAD
-            'cv' => $cvFileName,
-        ]);
-
-        $apply = Apply::create([
-            'user_id' => auth()->user()->id, // Assign the ID of the authenticated user
-            // Add other fields here that are not available in the form
-        ]);
-
-        $postTitle = $request->input('title');
-        $post = Post::where('title', $postTitle)->first();
-        $postId = $post ? $post->id : null;
-
-        $apply->formData()->save($formData);
-        $apply->post_id = $postId;
-=======
             'user_id' => Auth()->user()->id ,
             'cv' => $cvFileName,
         ]);
@@ -110,7 +83,6 @@ class ApplyFormController extends Controller
         $apply->form_data_id = $formData->id;
         $apply->cv = $cvFileName;
         $apply->user_id = Auth()->user()->id;
->>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
         $apply->save();
 
         // Redirect ke halaman sukses atau tampilan lainnya
