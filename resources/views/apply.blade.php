@@ -47,11 +47,7 @@
                         <div class="row">
                             <div class="col-3">
                                 <label for="">Provinsi</label>
-<<<<<<< HEAD
-                                <input type="text" class="form-control" placeholder="Masukkan disini.." name="ktp_provinsi">
-=======
                                 <input type="text" class="form-control" placeholder="Masukkan disini.." name="ktp_provinsi" value="{{old('ktp_provinsi')}}">
->>>>>>> 5c14f8cc8092cc49e1a27e1c298a9b691ff3acc1
                                 @error('ktp_provinsi')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
