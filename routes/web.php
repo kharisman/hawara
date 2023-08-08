@@ -18,6 +18,7 @@ Route::get('/list/search', [ListController::class, 'search'])->name('lists.searc
 Route::delete('/list/{id}', [ListController::class, 'delete'])->name('list.delete');
 Route::get('/list/{id}', [ListController::class, 'view'])->name('list.view');
 Route::get('/check', [ListController::class, 'check'])->name('check.status');
+Route::get('/check/{id}', [ListController::class, 'checkDetail'])->name('check.status.detail');
 Route::post('/update-status/{id}/{status}', [ListController::class, 'updateStatus'])->name('update.status');
 // Batas Bawah Applies
 
@@ -35,7 +36,6 @@ Route::get('/posting/search', [PostController::class, 'search'])->name('posts.se
 //Route::post('/submit-form', [FormController::class, 'store'])->name('submit-form');
 //Route::get('/apply-form', 'ApplyFormController@showForm')->name('apply-form');
 //Route::post('/submit-form', 'ApplyFormController@submitForm')->name('submit-form');
-
 
 Route::get('/', [AuthController::class, 'front'])->name("front");
 Route::post('register', [AuthController::class, 'register'])->name("register");

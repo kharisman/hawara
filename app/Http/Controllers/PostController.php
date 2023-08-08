@@ -71,7 +71,7 @@ class PostController extends Controller
         $post->save();
 
         // Redirect ke halaman posts setelah menyimpan post baru
-        return redirect()->route('index')->with('success', 'Post baru berhasil ditambahkan');
+        return redirect()->route('post.index')->with('success', 'Post baru berhasil ditambahkan');
     }
 
     public function update(Request $request, $id)

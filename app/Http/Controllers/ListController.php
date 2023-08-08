@@ -89,4 +89,16 @@ class ListController extends Controller
         return redirect()->back()->with('success', 'Status apply berhasil diperbarui');
     }
 
+    public function checkDetail($id)
+    {
+        $apply = Apply::find($id);
+
+        if (!$apply) {
+            return redirect()->back()->with('error', 'Applicant not found');
+        }
+
+        return view('check.detail', compact('apply'));
+    }
+
+
 }

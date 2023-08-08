@@ -64,14 +64,33 @@
                                       <i class="fas fa-folder"></i>
                                       Detail
                                     </a>
-                                    <form action="{{ route('list.delete', ['id' => $apply->id]) }}" method="POST">
+                                    <form action="{{ route('list.delete', ['id' => $apply->id]) }}" method="POST" id="deleteForm{{ $apply->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $apply->id }}">
                                             <i class="fas fa-trash"></i>
                                             Delete
                                         </button>
                                     </form>
+                                    <div class="modal fade" id="deleteModal{{ $apply->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $apply->id }}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel{{ $apply->id }}">Konfirmasi Hapus</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Apakah Anda yakin ingin menghapus data pelamar ini?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                    <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('deleteForm{{ $apply->id }}').submit();">Hapus</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             @php

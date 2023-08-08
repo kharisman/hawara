@@ -67,14 +67,33 @@
                               <i class="fas fa-pencil-alt"></i>
                               Edit
                             </a>
-                            <form action="{{ route('post.delete', ['id' => $post->id]) }}" method="POST">
+                            <form action="{{ route('post.delete', ['id' => $post->id]) }}" method="POST" id="deleteForm{{ $post->id }}">
                               @csrf
                               @method('DELETE')
-                              <button type="submit" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                                Delete
+                              <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $post->id }}">
+                                  <i class="fas fa-trash"></i>
+                                  Delete
                               </button>
                             </form>
+                            <div class="modal fade" id="deleteModal{{ $post->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $post->id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ $post->id }}">Konfirmasi Hapus</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus posting ini?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('deleteForm{{ $post->id }}').submit();">Hapus</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                           </td>
                         </tr>
                       @php
@@ -88,6 +107,6 @@
         </div>
         <!-- /.card -->
     </section>
-    <!-- /.content -->
+    <!-- /.content --> 
 </div>
 @endsection

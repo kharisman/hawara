@@ -59,22 +59,7 @@
                                 <td>{{ $apply->user->name }}</td>
                                 <td>{{ $apply->user->nomor_telepon }}</td>
                                 <td>{{ $apply->status }}</td>
-                                <td class="project-actions text-right">
-                                    <div class="btn-group">
-                                        <form action="{{ route('update.status', ['id' => $apply->id, 'status' => 'pending']) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-info">Pending</button>
-                                        </form>
-                                        <form action="{{ route('update.status', ['id' => $apply->id, 'status' => 'gagal']) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger">Gagal</button>
-                                        </form>
-                                        <form action="{{ route('update.status', ['id' => $apply->id, 'status' => 'berhasil']) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-success">Berhasil</button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <td><a href="{{ route('check.status.detail', ['id' => $apply->id]) }}" class="btn btn-block btn-info">Detail</a></td>
                             </tr>
                             @php
                                 $number++; // Increment nomor urutan setiap perulangan
@@ -86,7 +71,6 @@
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
-
     </section>
     <!-- /.content -->
 </div>
