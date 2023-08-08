@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 
 class ApplyFormController extends Controller
 {
-    public function showForm()
+    public function showForm($id)
     {
         // Tampilkan view form
-        return view('apply');
+        $post = Post::where("id", $id)->firstOrFail();
+        return view('apply',compact('post'));
     }
 
     public function submitForm(Request $request)
