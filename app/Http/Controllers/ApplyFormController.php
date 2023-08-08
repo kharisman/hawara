@@ -16,9 +16,12 @@ class ApplyFormController extends Controller
         return view('apply',compact('post'));
     }
 
-    public function submitForm(Request $request)
+    public function submitForm(Request $request, $id)
     {
         // Validasi data input
+
+        
+        $post = Post::where("id", $id)->firstOrFail();
         $request->validate([
             'ktp_text' => 'required',
             'ktp_provinsi' => 'required',

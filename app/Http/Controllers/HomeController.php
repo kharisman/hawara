@@ -68,7 +68,8 @@ class HomeController extends Controller
 
     public function result(Request $request)
     {
-        return view('result');
+        $apply = Apply::where("user_id", Auth::user()->id)->with("post")->with("formData")->get();
+        return view('result',compact('apply'));
     }
 
     public function posting(Request $request){
