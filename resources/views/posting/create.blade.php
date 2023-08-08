@@ -29,15 +29,31 @@
                     @csrf
                     <div class="form-group">
                         <label for="title">Judul:</label>
-                        <input type="text" class="form-control" id="title" name="title" required>
+                        <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}" required>
+                        @error('title')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="content">Sub Judul:</label>
-                        <input type="text" class="form-control" id="description" name="description" required>
+                        <input type="text" class="form-control" id="description" name="description" value="{{old('description')}}" required>
+                        @error('description')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="content">Deskripsi:</label>
-                        <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+                        <textarea class="form-control" id="content" name="content" rows="5" value="{{old('content')}}" required></textarea>
+                        @error('content')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="">Periode Lamaran</label>
+                        <input type="date" class="form-control" placeholder="Masukkan disini.." name="periode" value="{{old('periode')}}">
+                        @error('periode_lamaran')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <!-- Tambahkan field lainnya sesuai kebutuhan -->
                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -14,6 +14,7 @@ class Post extends Model
         'title',
         'content',
         'description',
+        'periode',
         // Kolom lain yang ingin Anda tambahkan
     ];
 }

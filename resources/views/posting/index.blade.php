@@ -58,6 +58,7 @@
                           <td> {{ $number }} </td>
                           <td><a><h5>{{ $post->title }}</h5></a><br /><small>Created {{ $post->created_at }}</small></td>
                           <td><p>{{ $post->description }}</p></td>
+                          <td><p>{{ $post->periode }}</p></td>
                           <td class="project-actions text-right">
                             <a class="btn btn-primary btn-sm" href="{{ route('post.view', ['id' => $post->id]) }}">
                               <i class="fas fa-folder"></i>
