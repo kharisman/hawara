@@ -15,7 +15,9 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::user()->roles=="Super Admin" or Auth::user()->roles=="Admin" ){
-            return view("home_admin");
+            $applies = Apply::all();
+            $posts = Post::all();
+            return view("home_admin", compact('applies', 'posts'));
         } else {
             $posts = Post::orderBy("id","DESC")->get();
             return view('home',compact('posts'));

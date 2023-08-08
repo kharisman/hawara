@@ -13,22 +13,22 @@ use App\Http\Controllers\PostController;
 //Applicant Family Controller
 Route::get('/home/apply/{id}', [ApplyFormController::class, 'showForm'])->name('apply');
 Route::post('/submit-form/{id}', [ApplyFormController::class, 'submitForm'])->name('submit-form');
-Route::get('/list', [ListController::class, 'index'])->name('index');
+Route::get('/list', [ListController::class, 'index'])->name('list.index');
 Route::get('/list/search', [ListController::class, 'search'])->name('lists.search');
 Route::delete('/list/{id}', [ListController::class, 'delete'])->name('list.delete');
 Route::get('/list/{id}', [ListController::class, 'view'])->name('list.view');
-Route::get('/check', [ListController::class, 'check'])->name('check');
+Route::get('/check', [ListController::class, 'check'])->name('check.status');
 Route::post('/update-status/{id}/{status}', [ListController::class, 'updateStatus'])->name('update.status');
 // Batas Bawah Applies
 
 //Posting Family Controller
-Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('edit');
-Route::get('/posts/{id}', [PostController::class, 'view'])->name('view');
-Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('delete');
-Route::get('/posting', [PostController::class, 'index'])->name('index');
-Route::get('/create', [PostController::class, 'create'])->name('create');
-Route::post('/store-post', [PostController::class, 'store'])->name('store-post');
-Route::put('/posts/{id}', [PostController::class, 'update'])->name('update');
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
+Route::get('/posts/{id}', [PostController::class, 'view'])->name('post.view');
+Route::delete('/posts/{id}', [PostController::class, 'delete'])->name('post.delete');
+Route::get('/posting', [PostController::class, 'index'])->name('post.index');
+Route::get('/create', [PostController::class, 'create'])->name('post.create');
+Route::post('/store-post', [PostController::class, 'store'])->name('post.store-post');
+Route::put('/posts/{id}', [PostController::class, 'update'])->name('post.update');
 Route::get('/posting/search', [PostController::class, 'search'])->name('posts.search');
 //Batas Bawah Posting
 

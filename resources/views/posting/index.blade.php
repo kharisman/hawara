@@ -59,15 +59,15 @@
                           <td><a><h5>{{ $post->title }}</h5></a><br /><small>Created {{ $post->created_at }}</small></td>
                           <td><p>{{ $post->description }}</p></td>
                           <td class="project-actions text-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('view', ['id' => $post->id]) }}">
+                            <a class="btn btn-primary btn-sm" href="{{ route('post.view', ['id' => $post->id]) }}">
                               <i class="fas fa-folder"></i>
                               Detail
                             </a>
-                            <a class="btn btn-info btn-sm" href="{{ route('edit', ['id' => $post->id]) }}">
+                            <a class="btn btn-info btn-sm" href="{{ route('post.edit', ['id' => $post->id]) }}">
                               <i class="fas fa-pencil-alt"></i>
                               Edit
                             </a>
-                            <form action="{{ route('delete', ['id' => $post->id]) }}" method="POST">
+                            <form action="{{ route('post.delete', ['id' => $post->id]) }}" method="POST">
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="btn btn-danger btn-sm">

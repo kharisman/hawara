@@ -40,6 +40,7 @@
                     <div class="form-group">
                         <label>Alamat Berdasarkan KTP</label>
                         <textarea class="form-control" rows="3" placeholder="Masukkan disini.." name="ktp_text" value="{{old('ktp_text')}}"></textarea>
+                        <h6></h6>
                         <div class="row">
                             <div class="col-3">
                                 <label for="">Provinsi</label>
@@ -71,9 +72,12 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
                     <div class="form-group">
                         <label>Alamat Berdasarkan Domisili</label>
                         <textarea class="form-control" rows="3" placeholder="Masukkan disini.." name="domisili_text" value="{{old('domisili_text')}}"></textarea>
+                        <h6></h6>
                         <div class="row">
                             <div class="col-3">
                                 <label for="">Provinsi</label>
@@ -110,14 +114,16 @@
                     <div class="form-group">
                         <label>Nama Sekolah / Perguruan Tinggi</label>
                         <input type="text" class="form-control" placeholder="Masukkan disini.." name="nama_sekolah" value="{{old('nama_sekolah')}}">
-                        @error('nama_sekolah')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                            @error('nama_sekolah')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        <h6></h6>
                         <label>Jurusan / Program Studi</label>
                         <input type="text" class="form-control" placeholder="Masukkan disini.." name="jurusan" value="{{old('jurusan')}}">
-                        @error('jurusan')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                            @error('jurusan')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        <h6></h6>
                         <div class="row">
                             <div class="col-3">
                                 <label for="">Tingkatan</label>
@@ -171,6 +177,7 @@
                                 @enderror
                             </div>
                         </div>
+                        <h6></h6>
                         <div class="row">
                             <div class="col-5">
                                 <label for="">Jabatan</label>

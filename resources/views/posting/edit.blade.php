@@ -10,8 +10,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Posting</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('post.index') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('post.index') }}">Posting</a></li>
                         <li class="breadcrumb-item active">Edit Post</li>
                     </ol>
                 </div>
@@ -25,7 +25,7 @@
                 <h3 class="card-title">Edit Post</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('update', ['id' => $post->id]) }}" method="POST">
+                <form action="{{ route('post.update', ['id' => $post->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
