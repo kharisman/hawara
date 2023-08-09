@@ -26,7 +26,7 @@ class HomeController extends Controller
 
     public function apply($id)
     {
-        $post = Post::where("id",$id)->firstOrFail();
+        $post = Post::where("id", $id)->firstOrFail();
         return view('apply',compact('post'));
     }
 
@@ -69,7 +69,7 @@ class HomeController extends Controller
     public function result(Request $request)
     {
         $apply = Apply::where("user_id", Auth::user()->id)->with("post")->with("formData")->get();
-        return view('result',compact('apply'));
+        return view('result', ['applies' => $apply]);
     }
 
     public function posting(Request $request){

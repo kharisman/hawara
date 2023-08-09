@@ -44,9 +44,10 @@
                     <thead>
                         <tr>
                             <th style="width: 2%">No</th>
-                            <th style="width: 20%">Judul</th>
-                            <th style="width: 20%">Deskripsi</th>
-                            <th style="width: 33%"></th>
+                            <th style="width: 25%">Judul</th>
+                            <th style="width: 35%">Deskripsi</th>
+                            <th style="width: 10%">Periode</th>
+                            <th style="width: 28%">Action</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -11,7 +11,7 @@ use App\Http\Controllers\ApplyFormController;
 use App\Http\Controllers\PostController;
 
 //Applicant Family Controller
-Route::get('/home/apply/{id}', [ApplyFormController::class, 'showForm'])->name('apply');
+Route::get('/apply/{id}', [ApplyFormController::class, 'showForm'])->name('apply');
 Route::post('/submit-form/{id}', [ApplyFormController::class, 'submitForm'])->name('submit-form');
 Route::get('/list', [ListController::class, 'index'])->name('list.index');
 Route::get('/list/search', [ListController::class, 'search'])->name('lists.search');

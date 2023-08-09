@@ -26,7 +26,7 @@
               </div>
               <div class="card-body">
                 <p class="card-text">{{ $post->description }}</p>
-                <a href="{{url('')}}/home/apply/{{$post->id}}" class="btn btn-success">Masukan Lamaran Anda</a>
+                <a href="{{url('')}}/apply/{{$post->id}}" class="btn btn-success">Masukan Lamaran Anda</a>
               </div>
             </div>
           @endforeach

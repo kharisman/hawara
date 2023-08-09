@@ -60,6 +60,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'description' => 'required',
+            'periode' => 'required',
         ]);
 
         // Simpan data post baru ke database
@@ -67,6 +68,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->content = $request->content;
         $post->description = $request->description;
+        $post->periode = $request->periode;
         // ... tambahkan field lainnya sesuai kebutuhan
         $post->save();
 
@@ -81,6 +83,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'description' => 'required',
+            'periode' => 'required',
         ]);
 
         // Find the post based on the provided ID
@@ -90,11 +93,12 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->content = $request->content;
         $post->description = $request->description;
+        $post->periode = $request->periode;
         // ... add other fields as needed
         $post->save();
 
         // Redirect back to the detail view of the updated post
-        return redirect()->route('index')->with('success', 'Post berhasil diperbarui');
+        return redirect()->route('post.index')->with('success', 'Post berhasil diperbarui');
     }
     
     public function search(Request $request)

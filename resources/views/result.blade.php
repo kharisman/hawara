@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('content')
 <style>
-  .info-box a:link,.info-box a {
-    color:#000 !important;
+  .info-box a:link, .info-box a {
+    color: #000 !important;
   }
 
   .announcement-wrapper {
@@ -51,37 +51,41 @@
             <span id="seconds_{{ $apply->post->id }}">--</span> detik
           </div>
         </div>
+        <h6></h6>
         @endforeach
       </div>
     </section>
 </div>
-
 <script>
 @foreach($applies as $apply)
-var post{{ $apply->post->id }}AnnouncementDate = new Date('{{ $apply->post->announcement_date }}');
+  @php
+    $announcementEndDate = \Carbon\Carbon::parse($apply->created_at)->addDays($apply->periode);
+  @endphp
 
-var post{{ $apply->post->id }}CountdownInterval = setInterval(function() {
-  var now = new Date().getTime();
-  var timeRemaining = post{{ $apply->post->id }}AnnouncementDate - now;
+  var targetDate{{ $apply->post->id }} = new Date('{{ $announcementEndDate }}');
 
-  var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+  var countdownInterval{{ $apply->post->id }} = setInterval(function() {
+      var now = new Date().getTime();
+      var timeRemaining = targetDate{{ $apply->post->id }} - now;
 
-  document.getElementById('days_{{ $apply->post->id }}').textContent = days;
-  document.getElementById('hours_{{ $apply->post->id }}').textContent = hours;
-  document.getElementById('minutes_{{ $apply->post->id }}').textContent = minutes;
-  document.getElementById('seconds_{{ $apply->post->id }}').textContent = seconds;
+      var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-  if (timeRemaining < 0) {
-    clearInterval(post{{ $apply->post->id }}CountdownInterval);
-    document.getElementById('days_{{ $apply->post->id }}').textContent = '00';
-    document.getElementById('hours_{{ $apply->post->id }}').textContent = '00';
-    document.getElementById('minutes_{{ $apply->post->id }}').textContent = '00';
-    document.getElementById('seconds_{{ $apply->post->id }}').textContent = '00';
-  }
-}, 1000);
-@endforeach
+      document.getElementById('days_{{ $apply->post->id }}').textContent = days;
+      document.getElementById('hours_{{ $apply->post->id }}').textContent = hours;
+      document.getElementById('minutes_{{ $apply->post->id }}').textContent = minutes;
+      document.getElementById('seconds_{{ $apply->post->id }}').textContent = seconds;
+
+      if (timeRemaining < 0) {
+          clearInterval(countdownInterval{{ $apply->post->id }});
+          document.getElementById('days_{{ $apply->post->id }}').textContent = '00';
+          document.getElementById('hours_{{ $apply->post->id }}').textContent = '00';
+          document.getElementById('minutes_{{ $apply->post->id }}').textContent = '00';
+          document.getElementById('seconds_{{ $apply->post->id }}').textContent = '00';
+      }
+  },1000);
+  @endforeach
 </script>
 @endsection

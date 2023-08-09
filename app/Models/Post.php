@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -17,4 +18,9 @@ class Post extends Model
         'periode',
         // Kolom lain yang ingin Anda tambahkan
     ];
+
+    public function getAnnouncementDateAttribute()
+    {
+        return $this->created_at->addDays($this->periode);
+    }
 }
