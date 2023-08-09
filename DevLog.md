@@ -9,7 +9,7 @@ Progress 08 Agustus 2023, 16:00 WIB
 progress 09 Agustus 2023, 16:00 WIB
 - Design web dirapikan (selesai)
 - Validasi Delete di Papan Posting dan List Applicant (Selesai)
-- buat form baru di Action pada list Approval Applicant (sedang dikerjakan Tahap 2)
+- buat form baru di Action pada list Approval Applicant (selesai sementara)
 - pengumuman per-postingan yang di apply user (selesai)
-- penambahan date periode posting untuk pengumuman (ada kendala)
-- penambahan kode setelah pelamar di approve oleh admin (sedang dikerjakan)
+- penambahan date periode posting untuk pengumuman (selesai sementara)
+- penambahan kode setelah pelamar di approve oleh admin (selesai)
