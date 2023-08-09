@@ -51,7 +51,7 @@
             <span id="seconds_{{ $apply->post->id }}">--</span> detik
           </div>
           @if ($apply->status === 'berhasil')
-            <a href="{{ route('generate.code', ['id' => $apply->id]) }}" class="btn btn-primary">Generate Kode</a>
+          <a href="#" class="btn btn-primary" onclick="generateCode('{{ $apply->id }}', '{{ $apply->kode }}', '{{ $apply->user->name }}')">Generate Kode</a>
           @elseif ($apply->status === 'pending')
             <button class="btn btn-warning" onclick="remindUser('{{ $apply->user->name }}')">Klik Sini</button>
           @elseif ($apply->status === 'gagal')
@@ -94,18 +94,16 @@
       }
   },1000);
   @endforeach
-  function generateCode(applyId) {
-  // Mengambil data dari tabel applies berdasarkan applyId
-    var apply = @json($apply); // JSON encode apply dari Blade ke JavaScript
-        
-  // Logika untuk menghasilkan kode
-    var kode = "Kode untuk " + apply.user.name + ": " + apply.kode;
+
+  function generateCode(applyId, applyKode, userName) {
+    // Logika untuk menghasilkan kode
+    var kode = "Kode untuk " + userName + " : " + applyKode;
     alert(kode);
   }
 
   function remindUser(userName) {
-  // Logika untuk mengirim pengingat
-    alert('Lamaran Anda sedang ditinjau' + userName);
+      // Logika untuk mengirim pengingat
+      alert('Lamaran Anda sedang ditinjau, ' + userName);
   }
 </script>
 @endsection

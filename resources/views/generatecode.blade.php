@@ -37,7 +37,15 @@
                                 <td>{{ $apply->user->name }}</td>
                                 <td>{{ $apply->kode }}</td>
                                 <td>
-                                    <a href="{{ route('generate.code', ['id' => $apply->id]) }}" class="btn btn-primary">Generate Kode</a>
+                                    <form action="{{ route('generate.code.submit', ['id' => $apply->id]) }}" method="POST">
+                                      @csrf
+                                      <div class="input-group">
+                                          <input type="text" name="kode" class="form-control" required>
+                                          <div class="input-group-append">
+                                              <button type="submit" class="btn btn-primary">Submit</button>
+                                          </div>
+                                      </div>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

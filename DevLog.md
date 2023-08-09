@@ -13,3 +13,5 @@ Progress 09 Agustus 2023, 16:00 WIB
 - pengumuman per-postingan yang di apply user (selesai)
 - penambahan date periode posting untuk pengumuman (selesai sementara)
 - penambahan kode setelah pelamar di approve oleh admin (selesai)
+
+Progress 10 Agustus 2023, 16:00 WIB

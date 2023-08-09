@@ -22,7 +22,7 @@ Route::get('/check/{id}', [ListController::class, 'checkDetail'])->name('check.s
 Route::post('/update-status/{id}/{status}', [ListController::class, 'updateStatus'])->name('update.status');
 Route::get('/code', [ListController::class, 'generateCodeView'])->name('generate.code.view');
 Route::get('/code/{id}', [ListController::class, 'generateCode'])->name('generate.code');
-
+Route::post('/generate/code/{id}', [ListController::class, 'generateCode'])->name('generate.code.submit');
 // Batas Bawah Applies
 
 //Posting Family Controller
