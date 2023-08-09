@@ -6,7 +6,7 @@ Progress 08 Agustus 2023, 16:00 WIB
 - penambahan date periode posting untuk pengumuman (sedang pengerjaan)
 - penambahan kode setelah pelamar di approve oleh admin (belum dikerjakan)
 
-progress 09 Agustus 2023, 16:00 WIB
+Progress 09 Agustus 2023, 16:00 WIB
 - Design web dirapikan (selesai)
 - Validasi Delete di Papan Posting dan List Applicant (Selesai)
 - buat form baru di Action pada list Approval Applicant (selesai sementara)
