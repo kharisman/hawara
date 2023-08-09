@@ -100,5 +100,28 @@ class ListController extends Controller
         return view('check.detail', compact('apply'));
     }
 
+    public function code()
+    {
+        return view('generatecode'); // Mengakses view generatecode.blade.php
+    }
 
+    public function generateCodeView() {
+        $successfulApplies = Apply::where('status', 'berhasil')->get(); // Mengambil pelamar dengan status berhasil
+        return view('generatecode', compact('successfulApplies'));
+    }        
+
+    public function generateCode($id) {
+        $apply = Apply::find($id);
+        
+        if ($apply && $apply->status === 'berhasil') {
+            $kode = uniqid(); // Menghasilkan kode unik, Anda bisa mengganti ini sesuai kebutuhan
+            $apply->kode = $kode;
+            $apply->save();
+    
+            return redirect()->route('generate.code.view')->with('success', 'Kode berhasil dihasilkan dan disimpan.');
+        } else {
+            return redirect()->route('generate.code.view')->with('error', 'Gagal menghasilkan kode.');
+        }
+    }
+    
 }

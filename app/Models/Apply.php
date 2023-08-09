@@ -26,5 +26,7 @@ class Apply extends Model
         'apply_id',
         'post_id',
         'form_data_id',
+        'kode',
+        'status',
     ];
 }

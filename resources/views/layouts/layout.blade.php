@@ -114,54 +114,57 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="{{url('')}}/posting" class="nav-link @if(Request::segment(1)=="posting") active @endif " >
-              <i class="nav-icon fas fa-pencil-alt"></i>
-              <p>
-                Papan Posting
-              </p>
-            </a>
-          </li>
-
-
-          <li class="nav-item">
-            <a href="{{url('')}}/list" class="nav-link @if(Request::segment(1)=="list") active @endif " >
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                List Applicant
-              </p>
-            </a>
-          </li>
-
-          
-          <li class="nav-item">
-            <a href="{{url('')}}/check" class="nav-link @if(Request::segment(1)=="check") active @endif " >
-              <i class="nav-icon fas fa-check-circle"></i>
-              <p>
-                Approval Applicant
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item  @if(Request::segment(1)=="report") menu-is-opening menu-open @endif ">
+          <li class="nav-item  @if(Request::segment(1)=="Posting") menu-is-opening menu-open @endif ">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
+              <i class="nav-icon fas fa-chalkboard"></i>
               <p>
-                Report
+                Posting
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview" >
-
-
               <li class="nav-item">
-                <a href="{{url('')}}/#" class="nav-link @if(Request::segment(2)=="vote-ml") active @endif ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p># menu</p>
+                <a href="{{url('')}}/posting" class="nav-link @if(Request::segment(2)=="posting") active @endif " >
+                  <i class="nav-icon fas fa-pencil-alt"></i>
+                  <p>
+                    Posting Lowongan
+                  </p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{url('')}}/code" class="nav-link @if(Request::segment(2)=="code") active @endif " >
+                  <i class="nav-icon fas fa-barcode"></i>
+                  <p>
+                    Generate Kode
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
-              
+          <li class="nav-item  @if(Request::segment(1)=="Applicant") menu-is-opening menu-open @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Applicant
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" >
+              <li class="nav-item">
+                <a href="{{url('')}}/check" class="nav-link @if(Request::segment(2)=="check") active @endif" >
+                  <i class="nav-icon fas fa-check-circle"></i>
+                  <p>Approval Applicant</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('')}}/list" class="nav-link @if(Request::segment(2)=="list") active @endif " >
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>
+                    List Applicant
+                  </p>
+                </a>
+              </li>
             </ul>
           </li>
 
