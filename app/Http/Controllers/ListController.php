@@ -79,34 +79,35 @@ class ListController extends Controller
             $apply->status = 'Pending';
         } elseif ($status === 'gagal') {
             $apply->status = 'Gagal';
+            $apply->save();
+            return redirect()->route('list.index')->with('success', 'Status apply berhasil diperbarui');
         } elseif ($status === 'berhasil') {
             $apply->status = 'Berhasil';
         } else {
             return redirect()->back()->with('error', 'Invalid status');
         }
-    
+        
         // Simpan perubahan status ke database
         $apply->save();
-    
+
         return redirect()->back()->with('success', 'Status apply berhasil diperbarui');
+        
     }    
     
     public function updateData(Request $request, $id) {
         $apply = Apply::find($id);
     
         if ($apply) {
-            $apply->keterangan = $request->input('keterangan'); // Mengambil keterangan dari inputan
-            if ($apply->status === 'berhasil') {
-                $kode = $request->input('kode');
-            } // Mengambil kode dari inputan
+            $apply->kode = $request->input('kode');
+            $apply->keterangan = $request->input('keterangan');
             // Tambahkan field lain yang perlu di-update
-            
+                
             $apply->save();
-    
-            return redirect()->route('list.index')->with('success', 'Data sudah Diperbarui');
+
+            return redirect()->route('list.index')->with('success', 'Data berhasil diperbarui.');
         }
-    
-        return redirect()->back()->with('success', 'Data sudah Diperbarui');
-    }        
+
+        return redirect()->route('list.index')->with('error', 'Gagal memperbarui data.');
+    }         
     
 }

@@ -95,7 +95,7 @@
                                 <textarea class="form-control" id="keterangan" name="keterangan" rows="5">{{ $apply->keterangan }}</textarea>
                             </div>
                             <hr>
-                            <button id="saveButton" class="btn btn-primary">Simpan</button>
+                            <button type="submit" id="saveButton" class="btn btn-primary">Simpan</button>
                         </form>
                     @elseif ($apply->status === 'pending')
                         <h4>Masukkan Keterangan</h4>
@@ -125,17 +125,6 @@
         fetch('{{ route('update.data', ['id' => $apply->id]) }}', {
             method: 'POST',
             body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Data berhasil diperbarui.');
-            } else {
-                alert('Gagal memperbarui data.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
         });
     });
 </script>

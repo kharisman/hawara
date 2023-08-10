@@ -51,11 +51,11 @@
             <span id="seconds_{{ $apply->post->id }}">--</span> detik
           </div>
           @if ($apply->status === 'berhasil')
-          <a href="#" class="btn btn-primary" onclick="generateCode('{{ $apply->id }}', '{{ $apply->kode }}', '{{ $apply->user->name }}')">Generate Kode</a>
+            <button class="btn btn-primary" onclick="generateCode('{{ $apply->id }}', '{{ $apply->kode }}', '{{ $apply->user->name }}')">Generate Kode</button>
           @elseif ($apply->status === 'pending')
             <button class="btn btn-warning" onclick="remindUser('{{ $apply->user->name }}', '{{ $apply->keterangan }}')">Klik Sini</button>
           @elseif ($apply->status === 'gagal')
-            <p>Ucapan Terima Kasih</p>
+            <button class="btn btn-primary" onclick="showThankYouMessage()">Ucapan Terima Kasih</button>
           @endif
         </div>
         <h6></h6>
@@ -96,19 +96,33 @@
   @endforeach
 
   function generateCode(applyId, applyKode, userName) {
-    // Logika untuk menghasilkan kode
-    var kode = "Kode untuk " + userName + " : " + applyKode;
-    alert(kode);
+      var kode = "Kode untuk " + userName + " : " + applyKode;
+
+      Swal.fire({
+          title: 'Kode',
+          text: kode,
+          icon: 'success',
+          confirmButtonText: 'Tutup'
+      });
   }
 
   function remindUser(userName, applyKeterangan) {
-    // Membuat dialog SweetAlert2
-    Swal.fire({
-        title: 'Keterangan',
-        html: `Kepada ${userName}, ${applyKeterangan}`,
-        icon: 'info',
-        confirmButtonText: 'Tutup'
-    });
+      Swal.fire({
+          title: 'Keterangan',
+          html: `Kepada ${userName}, ${applyKeterangan}`,
+          icon: 'info',
+          confirmButtonText: 'Tutup'
+      });
   }
+
+  function showThankYouMessage() {
+      Swal.fire({
+          title: 'Terima Kasih',
+          text: 'Sudah Mengikuti Lowongan Ini.',
+          icon: 'error',
+          confirmButtonText: 'Tutup'
+      });
+  }
+  
 </script>
 @endsection
