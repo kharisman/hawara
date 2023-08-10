@@ -17,11 +17,9 @@ Route::get('/list', [ListController::class, 'index'])->name('list.index');
 Route::get('/list/search', [ListController::class, 'search'])->name('lists.search');
 Route::delete('/list/{id}', [ListController::class, 'delete'])->name('list.delete');
 Route::get('/list/{id}', [ListController::class, 'view'])->name('list.view');
-Route::get('/check', [ListController::class, 'check'])->name('check.status');
-Route::get('/check/{id}', [ListController::class, 'checkDetail'])->name('check.status.detail');
-Route::post('/update-status/{id}/{status}', [ListController::class, 'updateStatus'])->name('update.status');
-Route::get('/code', [ListController::class, 'generateCodeView'])->name('generate.code.view');
+Route::post('/update-status/{id}', [ListController::class, 'updateStatus'])->name('update.status');
 Route::get('/code/{id}', [ListController::class, 'generateCode'])->name('generate.code');
+Route::post('/update-data/{id}', [ListController::class, 'updateData'])->name('update.data');
 Route::post('/generate/code/{id}', [ListController::class, 'generateCode'])->name('generate.code.submit');
 // Batas Bawah Applies
 

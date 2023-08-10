@@ -29,7 +29,7 @@
                 <p><strong>Email:</strong> {{ $apply->user->email }}</p>
                 <p><strong>Status:</strong> {{ $apply->status }}</p>
                 <p><strong>Phone Number:</strong> {{ $apply->user->nomor_telepon }}</p>
-                <p><strong>Applied At:</strong> {{ $apply->applied_at }}</p>
+                <p><strong>Applied At:</strong> {{ $apply->created_at }}</p>
 
                 <hr>
                 
@@ -56,10 +56,61 @@
                     <p><strong>Periode Kerja:</strong> {{ $apply->formData->periode_kerja }}</p>
                     <p><strong>Jabatan:</strong> {{ $apply->formData->jabatan }}</p>
                     <p><strong>Status Pekerjaan:</strong> {{ $apply->formData->status_pekerjaan }}</p>
-                    <p><strong>CV File:</strong> {{ $apply->formData->cv }}</p>
+                    @if ($apply->formData->cv)
+                        <p><strong>CV File:</strong> <a href="{{ asset('path_to_your_cv_files/' . $apply->formData->cv) }}" download>Download CV</a></p>
+                    @endif
                 @else
                     <p>No Form Data available for this applicant.</p>
                 @endif
+
+                <hr>
+                
+                <h4>Approval Status</h4>
+                <td class="project-actions text-right">
+                    <form action="{{ route('update.status', ['id' => $apply->id]) }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="status">Ubah Status:</label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="pending">Pending</option>
+                                <option value="gagal">Gagal</option>
+                                <option value="berhasil">Berhasil</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ubah</button>
+                    </form>                                                         
+                </td>
+                <h5></h5>
+                <td>
+                    @if ($apply->status === 'berhasil')
+                        <h4>Masukkan Kode Test dan Keterangan</h4>
+                        <form id="updateForm" action="{{ route('update.data', ['id' => $apply->id]) }}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="kode">Kode Test:</label>
+                                <input type="text" name="kode" id="kode" class="form-control" value="{{old('kode')}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="keterangan">Keterangan:</label>
+                                <textarea class="form-control" id="keterangan" name="keterangan" rows="5">{{ $apply->keterangan }}</textarea>
+                            </div>
+                            <hr>
+                            <button id="saveButton" class="btn btn-primary">Simpan</button>
+                        </form>
+                    @elseif ($apply->status === 'pending')
+                        <h4>Masukkan Keterangan</h4>
+                        <form id="updateForm" action="{{ route('update.data', ['id' => $apply->id]) }}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="keterangan">Keterangan:</label>
+                                <textarea class="form-control" id="keterangan" name="keterangan" rows="5">{{ $apply->keterangan }}</textarea>
+                            </div>
+                            <hr>
+                            <button id="saveButton" class="btn btn-primary">Simpan</button>
+                        </form>
+                    @else
+                        <h4>Ucapan Terima Kasih</h4>
+                    @endif 
             </div>
             <!-- /.card-body -->
         </div>
@@ -67,4 +118,25 @@
     </section>
     <!-- /.content -->
 </div>
+<script>
+    document.getElementById('saveButton').addEventListener('click', function () {
+        var formData = new FormData(document.getElementById('updateForm'));
+
+        fetch('{{ route('update.data', ['id' => $apply->id]) }}', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Data berhasil diperbarui.');
+            } else {
+                alert('Gagal memperbarui data.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
 @endsection

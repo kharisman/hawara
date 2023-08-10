@@ -15,6 +15,9 @@ Progress 09 Agustus 2023, 16:00 WIB
 - penambahan kode setelah pelamar di approve oleh admin (selesai)
 
 Progress 10 Agustus 2023, 16:00 WIB
-- gabungkan fitur Approval, List dan Kode jadi List Applicant (belum dikerjakan)
+- gabungkan fitur Approval, List dan Kode jadi List Applicant (selesai sementara)
 - testing dengan 5 user gaib (belum dikerjakan)
 - penambahan date periode posting untuk pengumuman (pending dikerjakan)
+- menampilkan kode ujian jika status = berhasil di view result.blade.php (belum dikerjakan)
+
+Progress 11 Agustus 2023, 16:00 WIB

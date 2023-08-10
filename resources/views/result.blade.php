@@ -53,7 +53,7 @@
           @if ($apply->status === 'berhasil')
           <a href="#" class="btn btn-primary" onclick="generateCode('{{ $apply->id }}', '{{ $apply->kode }}', '{{ $apply->user->name }}')">Generate Kode</a>
           @elseif ($apply->status === 'pending')
-            <button class="btn btn-warning" onclick="remindUser('{{ $apply->user->name }}')">Klik Sini</button>
+            <button class="btn btn-warning" onclick="remindUser('{{ $apply->user->name }}', '{{ $apply->keterangan }}')">Klik Sini</button>
           @elseif ($apply->status === 'gagal')
             <p>Ucapan Terima Kasih</p>
           @endif
@@ -101,9 +101,14 @@
     alert(kode);
   }
 
-  function remindUser(userName) {
-      // Logika untuk mengirim pengingat
-      alert('Lamaran Anda sedang ditinjau, ' + userName);
+  function remindUser(userName, applyKeterangan) {
+    // Membuat dialog SweetAlert2
+    Swal.fire({
+        title: 'Keterangan',
+        html: `Kepada ${userName}, ${applyKeterangan}`,
+        icon: 'info',
+        confirmButtonText: 'Tutup'
+    });
   }
 </script>
 @endsection

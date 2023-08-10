@@ -64,14 +64,16 @@ class ListController extends Controller
         return view('list.detail', compact('apply'));
     }
 
-    public function updateStatus($id, $status)
+    public function updateStatus(Request $request, $id)
     {
         $apply = Apply::find($id);
-
+    
         if (!$apply) {
             return redirect()->back()->with('error', 'Applicant not found');
         }
-
+    
+        $status = $request->input('status');
+    
         // Set status apply sesuai permintaan
         if ($status === 'pending') {
             $apply->status = 'Pending';
@@ -82,46 +84,29 @@ class ListController extends Controller
         } else {
             return redirect()->back()->with('error', 'Invalid status');
         }
-
+    
         // Simpan perubahan status ke database
         $apply->save();
-
+    
         return redirect()->back()->with('success', 'Status apply berhasil diperbarui');
-    }
-
-    public function checkDetail($id)
-    {
+    }    
+    
+    public function updateData(Request $request, $id) {
         $apply = Apply::find($id);
-
-        if (!$apply) {
-            return redirect()->back()->with('error', 'Applicant not found');
-        }
-
-        return view('check.detail', compact('apply'));
-    }
-
-    public function code()
-    {
-        return view('generatecode'); // Mengakses view generatecode.blade.php
-    }
-
-    public function generateCodeView() {
-        $successfulApplies = Apply::where('status', 'berhasil')->get(); // Mengambil pelamar dengan status berhasil
-        return view('generatecode', compact('successfulApplies'));
-    }        
-
-    public function generateCode(Request $request, $id) {
-        $apply = Apply::find($id);
-        
-        if ($apply && $apply->status === 'berhasil') {
-            $kode = $request->input('kode'); // Ambil kode dari form input
-            $apply->kode = $kode;
+    
+        if ($apply) {
+            $apply->keterangan = $request->input('keterangan'); // Mengambil keterangan dari inputan
+            if ($apply->status === 'berhasil') {
+                $kode = $request->input('kode');
+            } // Mengambil kode dari inputan
+            // Tambahkan field lain yang perlu di-update
+            
             $apply->save();
     
-            return redirect()->route('generate.code.view')->with('success', 'Kode berhasil disimpan.');
-        } else {
-            return redirect()->route('generate.code.view')->with('error', 'Gagal menyimpan kode.');
+            return redirect()->route('list.index')->with('success', 'Data sudah Diperbarui');
         }
-    }    
+    
+        return redirect()->back()->with('success', 'Data sudah Diperbarui');
+    }        
     
 }

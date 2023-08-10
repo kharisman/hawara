@@ -44,9 +44,10 @@
                         <tr>
                             <th style="width: 2%">No</th>
                             <th style="width: 25%">Applicant Name</th>
-                            <th style="width: 25%">Nomor Telepon</th>
-                            <th style="width: 25%">Status</th>
-                            <th style="width: 23%"></th>
+                            <th style="width: 18%">Nomor Telepon</th>
+                            <th style="width: 15%">Status</th>
+                            <th style="width: 10%">kode</th>
+                            <th style="width: 30%"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,6 +60,7 @@
                                 <td>{{ $apply->user->name }}</td>
                                 <td>{{ $apply->user->nomor_telepon }}</td>
                                 <td>{{ $apply->status }}</td>
+                                <td>{{ $apply->kode }}</td>
                                 <td class="project-actions text-right">
                                     <a class="btn btn-primary btn-sm" href="{{ route('list.view', ['id' => $apply->id]) }}">
                                       <i class="fas fa-folder"></i>
