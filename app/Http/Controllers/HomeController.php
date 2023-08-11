@@ -65,7 +65,6 @@ class HomeController extends Controller
         return redirect()->back()->with('error', 'Gagal mengunggah CV.');
     }
 
-
     public function result(Request $request)
     {
         $apply = Apply::where("user_id", Auth::user()->id)->with("post")->with("formData")->get();
@@ -75,5 +74,14 @@ class HomeController extends Controller
     public function posting(Request $request){
         return view('posting.index');
     }
+
+    public function showProfile()
+    {
+        $user = Auth::user();
+        $applies = Apply::where("user_id", $user->id)->get();
+        
+        return view('profile', ['user' => $user, 'applies' => $applies]);
+    }
+
 
 }

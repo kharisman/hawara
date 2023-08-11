@@ -23,7 +23,7 @@
     <section class="content">
         <!-- Default box -->
         <div class="card">
-        <div class="card-body">
+            <div class="card-body">
                 <h3>Informasi Pelamar</h3>
                 <p><strong>Name:</strong> {{ $apply->user->name }}</p>
                 <p><strong>Email:</strong> {{ $apply->user->email }}</p>

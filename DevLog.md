@@ -46,3 +46,6 @@ User Testing untuk Form Register dan Login
     Password: sarah456
 
 Progress 11 Agustus 2023, 16:00 WIB
+- buat Blade Profile untuk melihat data user secara private (selesai)
+- penambahan date periode posting untuk pengumuman (pending dikerjakan)
+- gabungkan fitur Approval, List dan Kode jadi List Applicant (selesai)

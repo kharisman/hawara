@@ -42,6 +42,7 @@ Route::get('/', [AuthController::class, 'front'])->name("front");
 Route::post('register', [AuthController::class, 'register'])->name("register");
 Route::get('login', [AuthController::class, 'showFormLogin'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
+Route::get('/profile', [HomeController::class, 'showProfile'])->name('profile');
 
 // Route::post('/submit-form', 'FormController@submitForm')->name('submit-form');
 
