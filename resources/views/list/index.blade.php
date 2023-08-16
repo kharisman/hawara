@@ -37,7 +37,7 @@
                     <thead>
                         <tr>
                             <th style="width: 2%">No</th>
-                            <th style="width: 25%">Applicant Name</th>
+                            <th style="width: 25%">Nama Pelamar</th>
                             <th style="width: 18%">Nomor Telepon</th>
                             <th style="width: 15%">Status</th>
                             <th style="width: 10%">kode</th>

@@ -10,6 +10,34 @@ use App\Models\Apply;
 
 class ListController extends Controller
 {
+    public function save_image($description)
+    {
+        if (!empty($description)){
+            $dom = new \DomDocument();
+            @$dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);   
+            $images = $dom->getElementsByTagName('img');
+            foreach($images as $k => $img){
+                $data = $img->getAttribute('src');
+                
+
+                if ( !strstr( $data, 'upload' ) ) {
+                    list($type, $data) = explode(';', $data);
+                    list(, $data)      = explode(',', $data);
+                    $data = base64_decode($data);
+                    $image_name= "/upload/" . time().$k.'.png';
+                    $path = public_path() . $image_name;
+                    file_put_contents($path, $data);
+                    $img->removeAttribute('src');
+                    $img->setAttribute('src', $image_name);
+                } else {
+                    // return false ;
+                }
+            }
+            $description = $dom->saveHTML();
+        }
+
+        return $description ;
+    }
     public function index()
     {
         $applies = Apply::with('formData', 'user')->get();
@@ -95,19 +123,43 @@ class ListController extends Controller
     }    
     
     public function updateData(Request $request, $id) {
-        $apply = Apply::find($id);
-    
-        if ($apply) {
-            $apply->kode = $request->input('kode');
-            $apply->keterangan = $request->input('keterangan');
-            // Tambahkan field lain yang perlu di-update
-                
-            $apply->save();
+        $apply = Apply::where("id",$id)->firstOrFail();
+        // return $apply ;
+        try {
+            
+            $description = $request->keterangan ;
+            if (!empty($description)){
+                $dom = new \DomDocument();
+                @$dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);   
+                $images = $dom->getElementsByTagName('img');
+                foreach($images as $k => $img){
+                    $data = $img->getAttribute('src');
 
-            return redirect()->route('list.index')->with('success', 'Data berhasil diperbarui.');
+                    
+                    if ( !strstr( $data, 'upload' ) ) {
+                        list($type, $data) = explode(';', $data);
+                        list(, $data)      = explode(',', $data);
+                        $data = base64_decode($data);
+                        $image_name= "/upload/" . time().$k.'.png';
+                        $path = public_path() . $image_name;
+                        file_put_contents($path, $data);
+                        $img->removeAttribute('src');
+                        $img->setAttribute('src', $image_name);
+                    } else {
+                        // return false ;
+                    }
+                }
+                $description = $dom->saveHTML();
+            };
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Gagal memperbarui data.');
         }
-
-        return redirect()->route('list.index')->with('error', 'Gagal memperbarui data.');
+    
+        $apply->kode = $request->input('kode');
+        $apply->keterangan = $description;
+        $apply->save();
+        return redirect()->back()->with('success', 'Data berhasil diperbarui.');
+        
     }         
     
 }

@@ -1,1 +1,1 @@
-<p>Silihakan buka tautakan berikut ini untuk reset paassword <a href="{{url('')}}/konfirmasi/{{ $data['kode'] }}">Klik disini</a></p>
+<p>Silahkan buka tautakan berikut ini untuk reset password <a href="{{url('')}}/konfirmasi/{{ $data['kode'] }}">Klik disini</a></p>

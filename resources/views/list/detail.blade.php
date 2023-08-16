@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 
 @section('content')
+<link rel="stylesheet" href="{{url('')}}/plugins/summernote/summernote-bs4.min.css">
+<script src="{{url('')}}/plugins/summernote/summernote-bs4.min.js"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -72,9 +74,9 @@
                         <div class="form-group">
                             <label for="status">Ubah Status:</label>
                             <select name="status" id="status" class="form-control">
-                                <option value="pending">Pending</option>
-                                <option value="gagal">Gagal</option>
-                                <option value="berhasil">Berhasil</option>
+                                <option value="pending" @if($apply->status=="pending") selected @endif>Pending</option>
+                                <option value="gagal" @if($apply->status=="gagal") selected @endif>Gagal</option>
+                                <option value="berhasil" @if($apply->status=="berhasil") selected @endif>Berhasil</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Ubah</button>
@@ -88,11 +90,11 @@
                             @csrf
                             <div class="form-group">
                                 <label for="kode">Kode Test:</label>
-                                <input type="text" name="kode" id="kode" class="form-control" value="{{old('kode')}}">
+                                <input type="text" name="kode" id="kode" class="form-control" value="{{old('kode',$apply->kode)}}">
                             </div>
                             <div class="form-group">
                                 <label for="keterangan">Keterangan:</label>
-                                <textarea class="form-control" id="keterangan" name="keterangan" rows="5">{{ $apply->keterangan }}</textarea>
+                                <textarea class="form-control" id="summernote" name="keterangan" rows="5">{{ $apply->keterangan }}</textarea>
                             </div>
                             <hr>
                             <button type="submit" id="saveButton" class="btn btn-primary">Simpan</button>
@@ -103,7 +105,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="keterangan">Keterangan:</label>
-                                <textarea class="form-control" id="keterangan" name="keterangan" rows="5">{{ $apply->keterangan }}</textarea>
+                                <textarea class="form-control" id="summernote" name="keterangan" rows="5">{{ $apply->keterangan }}</textarea>
                             </div>
                             <hr>
                             <button id="saveButton" class="btn btn-primary">Simpan</button>
@@ -119,6 +121,20 @@
     <!-- /.content -->
 </div>
 <script>
+    $('#summernote').summernote({
+        callbacks: {
+            onPaste: function (e) {
+                var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+
+                e.preventDefault();
+
+                // Firefox fix
+                setTimeout(function () {
+                    document.execCommand('insertText', false, bufferText);
+                }, 10);
+            }
+        }
+    });
     document.getElementById('saveButton').addEventListener('click', function () {
         var formData = new FormData(document.getElementById('updateForm'));
 
