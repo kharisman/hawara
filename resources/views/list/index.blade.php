@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>List Applicant</h1>
+                    <h1>Data Pelamar</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -30,16 +30,10 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Search Applicant</h3>
-                <form action="{{ route('lists.search') }}" method="GET" class="input-group mb-3">
-                    <input type="text" class="form-control rounded-0" name="search" placeholder="Cari berdasarkan nama">
-                    <span class="input-group-append">
-                        <button type="submit" class="btn btn-info btn-flat">Cari</button>
-                    </span>
-                </form>
+                
             </div>
-            <div class="card-body p-0">
-                <table class="table table-striped projects">
+            <div class="card-body">
+                <table class="table table-striped projects " id="data">
                     <thead>
                         <tr>
                             <th style="width: 2%">No</th>
@@ -69,30 +63,12 @@
                                     <form action="{{ route('list.delete', ['id' => $apply->id]) }}" method="POST" id="deleteForm{{ $apply->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $apply->id }}">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-postid="{{ $apply->id }}">
                                             <i class="fas fa-trash"></i>
                                             Delete
                                         </button>
                                     </form>
-                                    <div class="modal fade" id="deleteModal{{ $apply->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $apply->id }}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel{{ $apply->id }}">Konfirmasi Hapus</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus data pelamar ini?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('deleteForm{{ $apply->id }}').submit();">Hapus</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </td>
                             </tr>
                             @php
@@ -109,4 +85,50 @@
     </section>
     <!-- /.content -->
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus posting ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#data").DataTable({
+            order: [[0, 'asc']],
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+        });
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Tombol yang memicu modal
+            var postId = button.data('postid'); // Dapatkan id posting dari atribut data
+            var modal = $(this);
+
+            // Set id posting di modal konfirmasi
+            modal.find('#confirmDeleteButton').data('postid', postId);
+
+            // Menangani aksi penghapusan saat tombol "Hapus" di modal diklik
+            $('#confirmDeleteButton').on('click', function () {
+                var postId = $(this).data('postid');
+                var form = $('#deleteForm' + postId);
+
+                form.submit(); // Lakukan submit form penghapusan
+            });
+        });
+    });
+</script>
 @endsection

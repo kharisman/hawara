@@ -25,15 +25,56 @@
                 <h3 class="card-title">Post Detail</h3>
             </div>
             <div class="card-body">
-                <h2>Judul: {{ $post->title }}</h2>
-                <p>Sub Judul: {{ $post->description }}</p>
+                <div class="post-header">
+                    <h2 class="post-title">{{ $post->title }}</h2>
+                    <p class="post-subtitle">{{ $post->description }}</p>
+                    <p class="post-period">
+                        <strong>Periode:</strong>
+                        @if($post->periode_awal)
+                            {{ \Carbon\Carbon::parse($post->periode_awal)->isoFormat('D MMMM Y') }} -
+                        @endif
+                        @if($post->periode_akhir)
+                            {{ \Carbon\Carbon::parse($post->periode_akhir)->isoFormat('D MMMM Y') }}
+                        @endif
+                    </p>
+                </div>
                 <hr>
-                <p>Deskripsi: {{ $post->content }}</p>
-                <!-- Add other fields here if needed -->
+                <div class="post-content">
+                    <p>{{ $post->content }}</p>
+                    <!-- Add other fields here if needed -->
+                </div>
             </div>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
     </section>
 </div>
+@endsection
+
+@section('styles')
+<style>
+    .post-header {
+        margin-bottom: 20px;
+    }
+
+    .post-title {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+    .post-subtitle {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .post-period {
+        font-size: 14px;
+        color: #777;
+        margin-bottom: 10px;
+    }
+
+    .post-content {
+        font-size: 16px;
+    }
+</style>
 @endsection

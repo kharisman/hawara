@@ -1,6 +1,9 @@
 @extends('layouts.layout')
 
 @section('content')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -29,6 +32,13 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
+                        <label for="">Periode Lamaran</label>
+                        <input type="text" class="form-control" placeholder="Masukkan disini.." name="periode" id="periode" value="{{old('periode',$post->periode_awal." - ". $post->periode_akhir)}}">
+                        @error('periode')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="title">Judul:</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}" required>
                         @error('title')
@@ -49,13 +59,7 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="">Periode Lamaran</label>
-                        <input type="date" class="form-control" placeholder="Masukkan disini.." name="periode" value="{{ old('periode', $post->periode) }}">
-                        @error('periode_lamaran')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    
                     <!-- Add other fields here if needed -->
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>                
@@ -65,4 +69,22 @@
         <!-- /.card -->
     </section>
 </div>
+<script>
+$('input[name="periode"]').daterangepicker({
+    locale: {
+    format: 'Y-MM-DD'
+    },
+    ranges: {
+        '1 Bulan': [moment(), moment().add(1, 'months')],
+        '3 Bulan': [moment(), moment().add(3, 'months')],
+        '6 Bulan': [moment(), moment().add(6, 'months')],
+        '12 Bulan': [moment(), moment().add(12, 'months')]
+    },
+    startDate: moment(),
+    endDate: moment().add(1, 'months') // Default range: 1 bulan
+})
+
+$('input[name="periode"]').val("{{old('periode',$post->periode_awal." - ". $post->periode_akhir)}}");
+
+</script>
 @endsection

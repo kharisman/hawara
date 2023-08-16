@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use DB;
 
 class PostController extends Controller
 {
@@ -25,7 +26,7 @@ class PostController extends Controller
     public function edit($id)
     {
         // Mengambil data post berdasarkan ID
-        $post = Post::find($id);
+        $post = Post::where("id",$id)->firstOrfail();
 
         // Menampilkan view untuk mengedit post
         return view('posting.edit', compact('post'));
@@ -55,7 +56,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data yang dikirim dari form
+
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
@@ -63,16 +64,15 @@ class PostController extends Controller
             'periode' => 'required',
         ]);
 
-        // Simpan data post baru ke database
+        $periode  = explode(" - ", $request->periode) ;
         $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
         $post->description = $request->description;
-        $post->periode = $request->periode;
-        // ... tambahkan field lainnya sesuai kebutuhan
+        $post->periode_awal = $periode[0] ;
+        $post->periode_akhir = $periode[1];
         $post->save();
 
-        // Redirect ke halaman posts setelah menyimpan post baru
         return redirect()->route('post.index')->with('success', 'Post baru berhasil ditambahkan');
     }
 
@@ -87,13 +87,15 @@ class PostController extends Controller
         ]);
 
         // Find the post based on the provided ID
-        $post = Post::find($id);
+        $periode  = explode(" - ", $request->periode) ;
+        $post = Post::where("id",$id)->firstOrfail();
 
         // Update the post with the new data
         $post->title = $request->title;
         $post->content = $request->content;
         $post->description = $request->description;
-        $post->periode = $request->periode;
+        $post->periode_awal = $periode[0] ;
+        $post->periode_akhir = $periode[1];
         // ... add other fields as needed
         $post->save();
 

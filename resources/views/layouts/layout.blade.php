@@ -127,7 +127,7 @@
             <a href="{{url('')}}/list" class="nav-link @if(Request::segment(1)=="list") active @endif " >
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Applicant
+                Pelamar
               </p>
             </a>
           </li>
