@@ -69,6 +69,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('result', [HomeController::class, 'result']);
 
+
+    Route::prefix('pengaturan')->group(function () {
+        
+        Route::get('user', [SettingController::class, 'user_data']);
+        Route::get('user/tambah', [SettingController::class, 'user_add']);
+        Route::post('user/tambah', [SettingController::class, 'user_add_p']);
+        Route::get('user/edit', [SettingController::class, 'user_edit']);
+        Route::post('user/edit', [SettingController::class, 'user_edit_p']);
+        Route::post('user/delete/{id}', [SettingController::class, 'user_delete_p']);
+
+    });
+
     // Route::get('posting', [HomeController::class, 'posting']);
 
 

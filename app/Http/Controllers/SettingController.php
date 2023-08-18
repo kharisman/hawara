@@ -8,159 +8,130 @@ use App\Models\ResellerPayment;
 use App\Models\ResellerProduct;
 use App\Models\TimML;
 use Illuminate\Validation\Rule;
+use App\Models\User;
 
 class SettingController extends Controller
 {
     //
-    public function website(Request $request)
+    public function user_data(Request $request)
     {
-        return view('home');
+        // return 121 ;
+        $datas = User::get();
+        return view('setting.user_data',compact('datas'));
     }
 
-    public function program_mitra(Request $request)
+    public function user_add(Request $request)
     {
-        return view('home');
+        return view('setting.user_add');
     }
 
-    public function produk_mitra(Request $request)
-    {
-        $product = ResellerProduct::get();
-        // return $resellers;
-        return view('setting.mitra.produk_mitra_data',compact('product'));
-    }
-
-    public function produk_mitra_add(Request $request)
-    {
-        return view('setting.mitra.produk_mitra_add');
-    }
-
-    public function produk_mitra_add_p(Request $request)
+    public function user_add_p(Request $request)
     {
         $validatedData = $request->validate([
-            'nama_produk' => 'required|min:2|unique:reseller_products,name',
-            'cover' => 'required|min:3',
-            'deskripsi_pendek' => 'required|min:3',
-            'deskripsi' => 'required|min:3',
-            'harga' => 'required|integer|min:3',
-            'harga_jual' => 'required|integer|min:3',
+            'nama' => 'required',
+            'email' => 'required|email|unique:user_reports,email,NULL,id,deleted_at,NULL',
+            'password' => 'required|confirmed|min:8',
+            'roles' => 'required|in:Super Admin,Admin,Operator'
         ]);
         
-        $save  = New ResellerProduct() ;
-        $save->name = $request->nama_produk;
-        $save->cover = $request->cover;
-        $save->descriptions = $request->deskripsi;
-        $save->short_desc = $request->deskripsi_pendek;
-        $save->price = $request->harga;
-        $save->price_pay = $request->harga_jual;
-        $save->save();
+        $user = new User;
+        $user->name = $validatedData['nama'];
+        $user->email = $validatedData['email'];
+        $user->password = \Hash::make($validatedData['password']);
+        $user->roles = $validatedData['roles'];
+        $user->save();
 
-        if (!$save){
-            return back()->with('success', 'Data Produk Mitra berhasil diedit. ');
+        if (!$user){
+            return back()->with('error', 'Data user  berhasil disimpan. ');
         }
-        return back()->with('success', 'Data Produk Mitra berhasil disimpan. ');
+        return back()->with('success', 'Data user berhasil disimpan. ');
     }
 
-    public function produk_mitra_edit(Request $request)
+    public function user_edit(Request $request)
     {
-        $data = ResellerProduct::where("id",$request->id)->firstOrFail();
-        return view('setting.mitra.produk_mitra_edit',compact('data'));
+        $data= User::where("id", $request->id)->firstOrFail();
+        // return $data ;
+        return view('setting.user_edit', compact('data'));
     }
 
-    public function produk_mitra_edit_p(Request $request)
+    
+
+    public function user_edit_p(Request $request)
     {
+        $user = User::findOrFail($request->id); // $id adalah ID pengguna yang akan diedit
+
         $validatedData = $request->validate([
-            'nama_produk' => 'required|min:2|unique:reseller_products,name,'.$request->id.',id',
-            // 'cara_bayar' => 'required|min:2|unique:payment_methods,name,'.$request->id.',id,deleted_at,NULL',
-            'cover' => 'required|min:3',
-            'deskripsi_pendek' => 'required|min:3',
-            'deskripsi' => 'required|min:3',
-            'harga' => 'required|integer|min:3',
-            'harga_jual' => 'required|integer|min:3',
+            'nama' => 'required',
+            'email' => 'required|email|unique:user_reports,email,'.$user->id.',id,deleted_at,NULL',
+            'password' => 'nullable|confirmed|min:8', // password bisa tidak diubah
+            'roles' => 'required|in:Super Admin,Admin,Operator'
         ]);
-        
-        $save  = ResellerProduct::where("id",$request->id)->firstOrFail(); ;
-        $save->name = $request->nama_produk;
-        $save->cover = $request->cover;
-        $save->descriptions = $request->deskripsi;
-        $save->short_desc = $request->deskripsi_pendek;
-        $save->price = $request->harga;
-        $save->price_pay = $request->harga_jual;
-        $save->save();
-        
-        if (!$save){
-            return back()->with('error', 'Data Tim ML gagal disimpan. ');
+
+        $user->name = $validatedData['nama'];
+        $user->email = $validatedData['email'];
+        if ($validatedData['password']) {
+            $user->password = \Hash::make($validatedData['password']);
         }
-        return back()->with('success', 'Data Tim ML berhasil disimpan. ');
+        $user->roles = $validatedData['roles'];
+        $user->save();
+
+        if (!$user){
+            return back()->with('error', 'Data user gagal diupdate.');
+        }
+        return back()->with('success', 'Data user berhasil diupdate.');
+
     }
 
-    public function tim_ml(Request $request)
+
+
+    public function user_delete_p(Request $request, $id)
     {
-        $datas = TimML::get();
-        return view('setting.ml.ml_data',compact('datas'));
+        $user = User::findOrFail($id); // $id adalah ID pengguna yang akan diedit
+
+        if ($user->roles=="Super Admin"){
+            return back()->with('error', 'Data user gagal dihapus. Super Admin tidak bisa dihpus');
+
+        }
+        $user->delete();
+
+        if (!$user){
+            return back()->with('error', 'Data user gagal dihapus.');
+        }
+        return back()->with('success', 'Data user berhasil dihapus.');
+
     }
 
-    public function tim_ml_add(Request $request)
+    public function user_edit_self(Request $request)
     {
-        return view('setting.ml.ml_data_add');
+        $data= User::where("id", \Auth::user()->id)->firstOrFail();
+        // return $data ;
+        return view('setting.user_edit_self', compact('data'));
     }
 
-    public function tim_ml_add_p(Request $request)
+
+    public function user_edit_self_p(Request $request)
     {
+        $user = User::findOrFail(\Auth::user()->id); // $id adalah ID pengguna yang akan diedit
+
         $validatedData = $request->validate([
-            'nama' => 'required|min:2|unique:voting_data_tim,nama',
-            'gambar' => 'required|min:3',
-            'asal' => 'required|min:3',
-            'gambar' => 'required|min:3',
-            'urutan' => 'required',
-            'status' => 'required',
+            'nama' => 'required',
+            'email' => 'required|email|unique:user_reports,email,'.$user->id.',id,deleted_at,NULL',
+            'password' => 'nullable|confirmed|min:8', // password bisa tidak diubah
+            'roles' => 'required|in:Super Admin,Admin,Operator'
         ]);
-        
-        $save  = New TimML() ;
-        $save->nama = $request->nama;
-        $save->asal = $request->asal;
-        $save->gambar = $request->gambar;
-        $save->deskripsi = $request->deskripsi;
-        $save->urutan = $request->urutan;
-        $save->status = $request->status;
-        $save->session = 2;
-        $save->save();
 
-        if (!$save){
-            return back()->with('success', 'Data Tim ML berhasil diedit. ');
+        $user->name = $validatedData['nama'];
+        $user->email = $validatedData['email'];
+        if ($validatedData['password']) {
+            $user->password = \Hash::make($validatedData['password']);
         }
-        return back()->with('success', 'Data Tim ML berhasil disimpan. ');
-    }
+        $user->roles = $validatedData['roles'];
+        $user->save();
 
-    public function tim_ml_edit(Request $request)
-    {
-        // return 1212 ;
-        $data = TimML::where("id",$request->id)->firstOrFail();
-        return view('setting.ml.ml_data_edit',compact('data'));
-    }
-
-    public function tim_ml_edit_p(Request $request)
-    {
-        $validatedData = $request->validate([
-            'nama' => 'required|min:2|unique:voting_data_tim,nama,'.$request->id.',id',
-            'gambar' => 'required|min:3',
-            'asal' => 'required|min:3',
-            'gambar' => 'required|min:3',
-            'urutan' => 'required',
-            'status' => 'required',
-        ]);
-        
-        $save  = TimML::where("id",$request->id)->firstOrFail();
-        $save->nama = $request->nama;
-        $save->asal = $request->asal;
-        $save->gambar = $request->gambar;
-        $save->deskripsi = $request->deskripsi;
-        $save->urutan = $request->urutan;
-        $save->status = $request->status;
-        $save->save();
-
-        if (!$save){
-            return back()->with('error', 'Data Tim ML gagal diedit. ');
+        if (!$user){
+            return back()->with('error', 'Data profile gagal diupdate.');
         }
-        return back()->with('success', 'Data Tim ML  berhasil diedit. ');
+        return back()->with('success', 'Data profile berhasil diupdate.');
+
     }
 }

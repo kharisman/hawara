@@ -48,22 +48,76 @@
                     <p><strong>Kota/Kabupaten Domisili:</strong> {{ $apply->formData->domisili_kota }}</p>
                     <p><strong>Kecamatan Domisili:</strong> {{ $apply->formData->domisili_kecamatan }}</p>
                     <p><strong>Kode Pos Domisili:</strong> {{ $apply->formData->domisili_kodepos }}</p>
-                    <p><strong>Nama Sekolah/Perguruan Tinggi:</strong> {{ $apply->formData->nama_sekolah }}</p>
-                    <p><strong>Jurusan/Program Studi:</strong> {{ $apply->formData->jurusan }}</p>
-                    <p><strong>Tingkatan:</strong> {{ $apply->formData->tingkatan }}</p>
-                    <p><strong>Nilai Akhir/IPK:</strong> {{ $apply->formData->nilai_akhir }}</p>
-                    <p><strong>Status Pendidikan Terakhir:</strong> {{ $apply->formData->status }}</p>
-                    <p><strong>Tanggal Lulus:</strong> {{ $apply->formData->tanggal_lulus }}</p>
-                    <p><strong>Nama Perusahaan:</strong> {{ $apply->formData->nama_perusahaan }}</p>
-                    <p><strong>Periode Kerja:</strong> {{ $apply->formData->periode_kerja }}</p>
-                    <p><strong>Jabatan:</strong> {{ $apply->formData->jabatan }}</p>
-                    <p><strong>Status Pekerjaan:</strong> {{ $apply->formData->status_pekerjaan }}</p>
                     @if ($apply->formData->cv)
                         <p><strong>CV File:</strong> <a href="{{ asset('path_to_your_cv_files/' . $apply->formData->cv) }}" download>Download CV</a></p>
                     @endif
                 @else
                     <p>No Form Data available for this applicant.</p>
                 @endif
+
+                <hr>
+                <h3>Data Sekolah</h3>
+                {{-- {{$apply->formData->study}} --}}
+                <table  class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Sekolah</th>
+                            <th>Jurusan</th>
+                            <th>Status</th>
+                            <th>Tahun Lulus</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        @php
+                            $a = 1 ;
+                        @endphp
+                        @foreach ($apply->formData->study as $val )
+                            
+                        <tr>
+                            <td>{{$a++}}</td>
+                            <td> {{ $val->nama_sekolah}} </td>
+                            <td> {{ $val->jurusan}} </td>
+                            <td> {{ $val->lulus}} </td>
+                            <td> {{ $val->tahun_lulus}} </td>
+                        </tr> 
+
+                        
+                        @endforeach
+
+                    </tbody> 
+                </table>
+
+                <hr>
+                <h3>Data Pekerjaan</h3>
+                {{-- {{$apply->formData->study}} --}}
+                <table  class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama perusahaan</th>
+                            <th>Jabatan</th>
+                            <th>Periode Kerja</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        @php
+                            $a = 1 ;
+                        @endphp
+                        @foreach ($apply->formData->work as $val )
+                            
+                        <tr>
+                            <td>{{$a++}}</td>
+                            <td> {{ $val->nama_perusahaan}} </td>
+                            <td> {{ $val->jabatan}} </td>
+                            <td> {{ $val->periode_kerja_awal}} - {{ $val->periode_kerja_akhir}}  </td>
+                        </tr> 
+
+                        
+                        @endforeach
+
+                    </tbody> 
+                </table>
 
                 <hr>
                 

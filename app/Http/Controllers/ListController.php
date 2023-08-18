@@ -83,11 +83,7 @@ class ListController extends Controller
 
     public function view($id)
     {
-        $apply = Apply::find($id);
-
-        if (!$apply) {
-            return redirect()->back()->with('error', 'Applicant not found');
-        }
+        $apply = Apply::where("id",$id)->with("formData.work")->with("formData.study")->firstOrFail();
 
         return view('list.detail', compact('apply'));
     }

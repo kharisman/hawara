@@ -37,4 +37,15 @@ class FormData extends Model
     {
         return $this->belongsTo(Apply::class);
     }
+
+    public function work()
+    {
+        return $this->hasMany(Work::class);
+    }
+
+
+    public function study()
+    {
+        return $this->hasMany(Study::class);
+    }
 }

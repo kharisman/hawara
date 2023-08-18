@@ -132,6 +132,29 @@
             </a>
           </li>
 
+              
+          <li class="nav-item  @if(Request::segment(1)=="pengaturan") menu-is-opening menu-open @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>
+                Pengaturan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" >
+              
+              <li class="nav-item">
+                <a href="{{url('')}}/pengaturan/user" class="nav-link @if(Request::segment(2)=="user") active @endif ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data User</p>
+                </a>
+              </li> 
+
+
+            </ul>
+          </li>
+
+
           @endif
 
         </ul>

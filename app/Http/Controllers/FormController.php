@@ -10,7 +10,7 @@ class FormController extends Controller
     public function store(Request $request)
     {
         // Validasi data form
-        return $request;
+        // return $request;
         $validatedData = $request->validate([
             'ktp_text' => 'required',
             'ktp_provinsi' => 'required',
